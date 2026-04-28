@@ -31,7 +31,7 @@
 			{
 				"command" : 1,
 				"file" : 1,
-				"line" : 7,
+				"line" : 8,
 				"parent" : 0
 			},
 			{
@@ -145,6 +145,10 @@
 				{
 					"backtrace" : 9,
 					"path" : "C:/Repos/1ELE911_2026/assignment1-non-blocking-pwm-zzehgalinha/Drivers/CMSIS/Include"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/Repos/1ELE911_2026/assignment1-non-blocking-pwm-zzehgalinha/."
 				}
 			],
 			"language" : "C",
@@ -244,10 +248,16 @@
 			]
 		},
 		{
+			"name" : "Header Files",
+			"sourceIndexes" : 
+			[
+				1
+			]
+		},
+		{
 			"name" : "Object Libraries",
 			"sourceIndexes" : 
 			[
-				1,
 				2,
 				3,
 				4,
@@ -267,7 +277,8 @@
 				18,
 				19,
 				20,
-				21
+				21,
+				22
 			]
 		}
 	],
@@ -276,134 +287,139 @@
 		{
 			"backtrace" : 2,
 			"compileGroupIndex" : 0,
-			"path" : "C:/Program Files (x86)/Sysprogs/VisualGDB/CMake/embedded/dummy.c",
+			"path" : "NB_Functions.c",
 			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 2,
+			"path" : "NB_Functions.h",
+			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 9,
 			"isGenerated" : true,
 			"path" : "build/VisualGDB/Debug/CMakeFiles/BSP.dir/Core/Src/gpio.c.obj",
-			"sourceGroupIndex" : 1
+			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 9,
 			"isGenerated" : true,
 			"path" : "build/VisualGDB/Debug/CMakeFiles/BSP.dir/Core/Src/main.c.obj",
-			"sourceGroupIndex" : 1
+			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 9,
 			"isGenerated" : true,
 			"path" : "build/VisualGDB/Debug/CMakeFiles/BSP.dir/Core/Src/stm32f4xx_hal_msp.c.obj",
-			"sourceGroupIndex" : 1
+			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 9,
 			"isGenerated" : true,
 			"path" : "build/VisualGDB/Debug/CMakeFiles/BSP.dir/Core/Src/stm32f4xx_it.c.obj",
-			"sourceGroupIndex" : 1
+			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 9,
 			"isGenerated" : true,
 			"path" : "build/VisualGDB/Debug/CMakeFiles/BSP.dir/Core/Src/syscalls.c.obj",
-			"sourceGroupIndex" : 1
+			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 9,
 			"isGenerated" : true,
 			"path" : "build/VisualGDB/Debug/CMakeFiles/BSP.dir/Core/Src/sysmem.c.obj",
-			"sourceGroupIndex" : 1
+			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 9,
 			"isGenerated" : true,
 			"path" : "build/VisualGDB/Debug/CMakeFiles/BSP.dir/Core/Src/system_stm32f4xx.c.obj",
-			"sourceGroupIndex" : 1
+			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 9,
 			"isGenerated" : true,
 			"path" : "build/VisualGDB/Debug/CMakeFiles/BSP.dir/Core/Startup/startup_stm32f407vgtx.S.obj",
-			"sourceGroupIndex" : 1
+			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 9,
 			"isGenerated" : true,
 			"path" : "build/VisualGDB/Debug/CMakeFiles/BSP.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.c.obj",
-			"sourceGroupIndex" : 1
+			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 9,
 			"isGenerated" : true,
 			"path" : "build/VisualGDB/Debug/CMakeFiles/BSP.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.c.obj",
-			"sourceGroupIndex" : 1
+			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 9,
 			"isGenerated" : true,
 			"path" : "build/VisualGDB/Debug/CMakeFiles/BSP.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma.c.obj",
-			"sourceGroupIndex" : 1
+			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 9,
 			"isGenerated" : true,
 			"path" : "build/VisualGDB/Debug/CMakeFiles/BSP.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_dma_ex.c.obj",
-			"sourceGroupIndex" : 1
+			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 9,
 			"isGenerated" : true,
 			"path" : "build/VisualGDB/Debug/CMakeFiles/BSP.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c.obj",
-			"sourceGroupIndex" : 1
+			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 9,
 			"isGenerated" : true,
 			"path" : "build/VisualGDB/Debug/CMakeFiles/BSP.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash.c.obj",
-			"sourceGroupIndex" : 1
+			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 9,
 			"isGenerated" : true,
 			"path" : "build/VisualGDB/Debug/CMakeFiles/BSP.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c.obj",
-			"sourceGroupIndex" : 1
+			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 9,
 			"isGenerated" : true,
 			"path" : "build/VisualGDB/Debug/CMakeFiles/BSP.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c.obj",
-			"sourceGroupIndex" : 1
+			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 9,
 			"isGenerated" : true,
 			"path" : "build/VisualGDB/Debug/CMakeFiles/BSP.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c.obj",
-			"sourceGroupIndex" : 1
+			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 9,
 			"isGenerated" : true,
 			"path" : "build/VisualGDB/Debug/CMakeFiles/BSP.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c.obj",
-			"sourceGroupIndex" : 1
+			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 9,
 			"isGenerated" : true,
 			"path" : "build/VisualGDB/Debug/CMakeFiles/BSP.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c.obj",
-			"sourceGroupIndex" : 1
+			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 9,
 			"isGenerated" : true,
 			"path" : "build/VisualGDB/Debug/CMakeFiles/BSP.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c.obj",
-			"sourceGroupIndex" : 1
+			"sourceGroupIndex" : 2
 		},
 		{
 			"backtrace" : 9,
 			"isGenerated" : true,
 			"path" : "build/VisualGDB/Debug/CMakeFiles/BSP.dir/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c.obj",
-			"sourceGroupIndex" : 1
+			"sourceGroupIndex" : 2
 		}
 	],
 	"type" : "EXECUTABLE"
