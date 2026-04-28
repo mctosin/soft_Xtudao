@@ -75,6 +75,11 @@ typedef enum
 	Possible_transition = 1,
 	Detected = 2
 } type_transition_state;
+typedef enum
+{
+	fall = 0,
+	rise = 1
+}type_transition_type;
 
 typedef struct
 {
@@ -85,8 +90,9 @@ typedef struct
 	int time_debounce;
 	GPIO_TypeDef *Port;
 	uint16_t Pin;
+	type_transition_type edge;
 
-} type_rise_transition;
+} type_transition;
 
 /* USER CODE END PTD */
 
@@ -107,7 +113,7 @@ typedef struct
 type_ST ST_Timer1;
 type_PWM PWM1;
 type_on_off LED_B_state;
-type_rise_transition BOT_B_rise_transition; 
+type_transition BOT_B_rise_transition; 
 
 /* USER CODE END PV */
 
@@ -124,8 +130,9 @@ void PWM_Init(type_PWM *pPWM, GPIO_TypeDef* GPIO_Port, uint16_t GPIO_Pin,
               uint32_t Period, float Duty); 
 void PWM_Update(type_PWM *pPWM, uint32_t Period, 
                 float Duty, type_bool_state shadow);
-type_bool rise_detection(type_rise_transition *rise_trans);
-void rise_detection_init(type_rise_transition *rise_trans, 
+type_bool transition_detection(type_transition *trans);
+void transition_detection_init(type_transition *trans, 
+	type_transition_type edge,
 	GPIO_TypeDef *Port, uint16_t Pin, int time_debounce);
 
 /* USER CODE END PFP */
@@ -173,7 +180,7 @@ int main(void)
 	
 	int i = 0;
 	
-	rise_detection_init(&BOT_B_rise_transition, BOT_B_GPIO_Port, BOT_B_Pin, 200);
+	transition_detection_init(&BOT_B_rise_transition, fall, BOT_B_GPIO_Port, BOT_B_Pin, 200);
 	
 	/* USER CODE END 2 */
 
@@ -205,7 +212,7 @@ int main(void)
 			PWM_Update(&PWM1, 1000, 0.5, Inactive);
 		}
 	    	
-		if (rise_detection(&BOT_B_rise_transition))
+		if (transition_detection(&BOT_B_rise_transition))
 		{
 			HAL_GPIO_TogglePin(LED_R_GPIO_Port, LED_R_Pin);
 		}
@@ -374,56 +381,98 @@ void PWM_Update(type_PWM *pPWM, uint32_t Period,
 	}
 }
 
-type_bool rise_detection(type_rise_transition *rise_trans)
+type_bool transition_detection(type_transition *trans)
 {
-	rise_trans->atu = (type_bool_state)HAL_GPIO_ReadPin(rise_trans->Port, rise_trans->Pin);
-	if (rise_trans->state == Detecting)
+	trans->atu = (type_bool_state)HAL_GPIO_ReadPin(trans->Port, trans->Pin);
+	if (trans->state == Detecting)
 	{
-		if (rise_trans->atu == Active)
+		if (trans->edge == rise)
 		{
-			if (rise_trans->ant == Inactive)
+			if (trans->atu == Active)
 			{
-				// Saboooor transição
-				ST_Init(&(rise_trans->timer_db), rise_trans->time_debounce);
-				rise_trans->state = Possible_transition;
-			}			
-		}
-		rise_trans->ant = rise_trans->atu;
-	} 
-	else if (rise_trans->state == Possible_transition)
-	{
-		if (ST(&(rise_trans->timer_db)))
-		{
-			if (rise_trans->atu == Active)
-			{
-				rise_trans->state = Detected;
-				return True;
+				if (trans->ant == Inactive)
+				{
+					// Saboooor transição
+					ST_Init(&(trans->timer_db), trans->time_debounce);
+					trans->state = Possible_transition;
+				}			
 			}
-			else
+		}
+		else // fall
+		{
+			if (trans->atu == Inactive)
 			{
-				rise_trans->state = Detecting;
+				if (trans->ant == Active)
+				{
+					// Saboooor transição
+					ST_Init(&(trans->timer_db), trans->time_debounce);
+					trans->state = Possible_transition;
+				}			
+			}
+		}
+		
+		trans->ant = trans->atu;
+	} 
+	else if (trans->state == Possible_transition)
+	{
+		if (ST(&(trans->timer_db)))
+		{
+			if (trans->edge == rise)
+			{
+				if (trans->atu == Active)
+				{
+					trans->state = Detected;
+					return True;
+				}
+				else
+				{
+					trans->state = Detecting;
+				}
+			}
+			else //fall
+			{
+				if (trans->atu == Inactive)
+				{
+					trans->state = Detected;
+					return True;
+				}
+				else
+				{
+					trans->state = Detecting;
+				}
 			}
 		}
 			
 	}
 	else // Detected
 	{
-		rise_trans->state = Detecting;
+		trans->state = Detecting;
 	}
 	
 	return False;
 }
-void rise_detection_init(type_rise_transition *rise_trans, 
+void transition_detection_init(type_transition *trans, 
+	type_transition_type edge,
 	GPIO_TypeDef *Port,
 	uint16_t Pin,
 	int time_debounce)
 {
-	rise_trans->Port = Port;
-	rise_trans->Pin = Pin;
-	rise_trans->time_debounce = time_debounce;
-	rise_trans->state = Detecting;
-	rise_trans->ant = Active;
-	rise_trans->atu = Active;
+	trans->Port = Port;
+	trans->Pin = Pin;
+	trans->time_debounce = time_debounce;
+	trans->state = Detecting;
+	trans->edge = edge;
+	if (trans->edge == rise)
+	{
+		trans->ant = Active;
+		trans->atu = Active;
+	}
+	else // fall
+	{
+		trans->ant = Inactive;
+		trans->atu = Inactive;
+	}
+	
 }
 
 /* USER CODE END 4 */
