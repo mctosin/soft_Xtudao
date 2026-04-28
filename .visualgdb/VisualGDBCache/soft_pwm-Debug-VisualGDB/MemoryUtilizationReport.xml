@@ -8,12 +8,12 @@
     </MemoryUtilization>
     <MemoryUtilization>
       <MemoryName>RAM</MemoryName>
-      <Used>2080</Used>
+      <Used>2088</Used>
       <Total>131072</Total>
     </MemoryUtilization>
     <MemoryUtilization>
       <MemoryName>FLASH</MemoryName>
-      <Used>7524</Used>
+      <Used>7600</Used>
       <Total>1048576</Total>
     </MemoryUtilization>
   </Memories>

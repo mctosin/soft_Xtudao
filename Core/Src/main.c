@@ -109,10 +109,6 @@ type_PWM PWM1;
 type_on_off LED_B_state;
 type_rise_transition BOT_B_rise_transition; 
 
-type_bool_state BOT_B_atu, BOT_B_ant;
-type_ST ST_Timer_db_BOT_B;
-type_transition_state BOT_B_Rising_Transition;
-
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -175,14 +171,9 @@ int main(void)
 	
 	PWM_Init(&PWM1, LED_O_GPIO_Port, LED_O_Pin, 1000, 0.5);
 	
-	LED_B_state = off;
-	
 	int i = 0;
 	
-	BOT_B_atu = Active;
-	BOT_B_ant = Active;
-	
-	BOT_B_Rising_Transition = Detecting;
+	rise_detection_init(&BOT_B_rise_transition, BOT_B_GPIO_Port, BOT_B_Pin, 200);
 	
 	/* USER CODE END 2 */
 
@@ -194,9 +185,6 @@ int main(void)
 		/* USER CODE END WHILE */
 
 		/* USER CODE BEGIN 3 */
-		
-		if (BOT_B_Rising_Transition == Detected)
-			HAL_GPIO_TogglePin(LED_R_GPIO_Port, LED_R_Pin);
 		
 		if (ST(&ST_Timer1)) {
 			ST_Lapse(&ST_Timer1);
@@ -216,61 +204,11 @@ int main(void)
 		{
 			PWM_Update(&PWM1, 1000, 0.5, Inactive);
 		}
-	    
-		
-		BOT_B_atu = (type_bool_state)HAL_GPIO_ReadPin(BOT_B_GPIO_Port, BOT_B_Pin);
-#if 0
-		if (BOT_B_atu) 
+	    	
+		if (rise_detection(&BOT_B_rise_transition))
 		{
-			if (LED_B_state == off) {
-				HAL_GPIO_WritePin(LED_B_GPIO_Port, LED_B_Pin, GPIO_PIN_SET);
-				LED_B_state = on;
-			}
+			HAL_GPIO_TogglePin(LED_R_GPIO_Port, LED_R_Pin);
 		}
-		else 
-		{
-			if (LED_B_state == on) {
-				HAL_GPIO_WritePin(LED_B_GPIO_Port, LED_B_Pin, GPIO_PIN_RESET);
-				LED_B_state = off;
-			}
-			
-		}
-#endif
-		
-		if (BOT_B_Rising_Transition == Detecting)
-		{
-			if (BOT_B_atu == Active)
-			{
-				if (BOT_B_ant == Inactive)
-				{
-					// Saboooor transição
-					ST_Init(&ST_Timer_db_BOT_B, 200);
-					BOT_B_Rising_Transition = Possible_transition;
-				}			
-			}
-			BOT_B_ant = BOT_B_atu;
-		} 
-		else if (BOT_B_Rising_Transition == Possible_transition)
-		{
-			if (ST(&ST_Timer_db_BOT_B))
-			{
-				if (BOT_B_atu == Active)
-				{
-					BOT_B_Rising_Transition = Detected;
-				}
-				else
-				{
-					BOT_B_Rising_Transition = Detecting;
-				}
-			}
-			
-		}
-		else // Detected
-		{
-			BOT_B_Rising_Transition = Detecting;
-		}
-		
-		
 		
 	} // fim da baleia
 	/* USER CODE END 3 */
