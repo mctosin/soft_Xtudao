@@ -2,7 +2,22 @@
 #ifndef NB_FUNCTIONS_H
 #define NB_FUNCTIONS_H
 
-#include "main.h"
+//#include "main.h"
+
+#include "stm32f4xx_hal.h"
+
+
+#define BOT_B_Pin GPIO_PIN_0
+#define BOT_B_GPIO_Port GPIOA
+#define LED_G_Pin GPIO_PIN_12
+#define LED_G_GPIO_Port GPIOD
+#define LED_O_Pin GPIO_PIN_13
+#define LED_O_GPIO_Port GPIOD
+#define LED_R_Pin GPIO_PIN_14
+#define LED_R_GPIO_Port GPIOD
+#define LED_B_Pin GPIO_PIN_15
+#define LED_B_GPIO_Port GPIOD
+
 typedef enum
 {
 	off = 0,
@@ -91,4 +106,4 @@ void transition_detection_init(type_transition *trans,
 	int time_debounce);
 
 
-#endif
+#endif
